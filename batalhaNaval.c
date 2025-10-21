@@ -1,35 +1,58 @@
 #include <stdio.h>
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
     
-    // Declaração do tabuleiro 10x10.
     char tabuleiro[10][10];
+    char navio_char = '3'; // Caractere usado para marcar todas as partes do navio
 
-    // Inicializa e preenche o tabuleiro com 0
     printf("===== TABULEIRO DE BATALHA NAVAL =====\n");
 
+    // Inicializa o tabuleiro com o caractere '0'
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             tabuleiro[i][j] = '0' ; 
         }
     }
- 
-    char novo_valor = '3'; //Localização dos navios
+    
+    // --- POSICIONAMENTO 1: Navio Horizontal (3, G-I) ---
+    tabuleiro[3][6] = navio_char; 
+    tabuleiro[3][7] = navio_char; 
+    tabuleiro[3][8] = navio_char; 
+    
+    // --- POSICIONAMENTO 2: Navio Vertical (D, 5-7) ---
+    tabuleiro[5][4] = navio_char;
+    tabuleiro[6][4] = navio_char;
+    tabuleiro[7][4] = navio_char;
 
-    //O primeiro número é o eixo X e o segundo o eixo Y
-    tabuleiro[3][6] = novo_valor; 
-    tabuleiro[3][7] = novo_valor; 
-    tabuleiro[3][8] = novo_valor; 
-    tabuleiro[5][4] = novo_valor;
-    tabuleiro[6][4] = novo_valor;
-    tabuleiro[7][4] = novo_valor;
+    // --- POSICIONAMENTO 3: Navio Diagonal Padrão (A0, B1, C2) ---
+    int tamanho_diagonal = 3;
+    int linha_inicial_diag1 = 0;   // Linha 0
+    int coluna_inicial_diag1 = 0;  // Coluna A
 
+    for (int k = 0; k < tamanho_diagonal; k++) {
+        int linha = linha_inicial_diag1 + k;
+        int coluna = coluna_inicial_diag1 + k;
+        tabuleiro[linha][coluna] = navio_char;
+    }
+    
+    // --- POSICIONAMENTO 4 NOVO: Navio Diagonal Contrária (I0, H1, G2) ---
+    // A linha aumenta (0 -> 2), mas a coluna DIMINUI (8 -> 6)
+    int linha_inicial_diag2 = 0;   // Linha 0
+    int coluna_inicial_diag2 = 8;  // Coluna I
+
+    for (int k = 0; k < tamanho_diagonal; k++) {
+        int linha = linha_inicial_diag2 + k; // Linha: 0, 1, 2
+        int coluna = coluna_inicial_diag2 - k; // Coluna: 8, 7, 6
+        
+        // Posiciona o navio
+        tabuleiro[linha][coluna] = navio_char;
+    }
+    // -------------------------------------------------------------------
 
     // Imprime o cabeçalho das colunas (A a J)
     printf("  ");
     for (int c = 0; c < 10; c++){
-        printf(" %c", 'A' +c);
+        printf(" %c", 'A' + c);
     }
     printf("\n");
 
